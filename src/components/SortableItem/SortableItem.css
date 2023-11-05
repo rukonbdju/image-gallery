@@ -2,14 +2,12 @@
     position: relative;
     border: 1px solid gray;
     border-radius: 8px;
-    transition: all 250ms ease-in-out;
 }
 
 .image-container img{
     border-radius: 8px;
 }
 .item label{
-    display: none;
     position: absolute;
     top: 5px;
     left: 5px;
@@ -22,7 +20,6 @@
   }
   
   .image-container{
-    transition: all 250ms ease-in-out;
     border-radius: 8px;
     position: relative;
     background-color: white;
@@ -50,15 +47,13 @@
 
 /* Hide the default checkbox and customizng style */
 input[type="checkbox"] {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
     display: inline-block;
     width: 20px;
     height: 20px;
     background-color: #ffffff;
     position: relative;
     border-radius: 3px;
+   
 }
 
 /* Create a custom checkbox style */

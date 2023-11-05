@@ -1,44 +1,55 @@
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import './SortableItem.css'
-const SortableItem = ({ item,setSelectedItems }) => {
-    const [isChecked, setIsChecked] = useState(false)
-    console.log({item,isChecked})
-    const { attributes, listeners, setNodeRef, transform, transition, isDragging, active } = useSortable({ id: item.id, item })
+const SortableItem = ({ item, setSelectedItems, selectedItems, isLarge }) => {
+    const nodeRef = useRef(null);
+    const [isDraggedOverFirst, setIsDraggedOverFirst] = useState(false);
+    const { attributes, listeners, setNodeRef, transform, transition, isDragging, active, over } = useSortable({ id: item.id, item })
+    const isOverFirstImage = over && over.id === item.id && isLarge;
     let initialStyle = {
         transform: CSS.Translate.toString(transform),
         transition: active ? transition : '',
         height: '100%',
     };
-    let labelStyle = {}
-    if (isChecked) {
-        labelStyle = {
-            display: 'block'
-        }
-    }
-    const handleOnChange = () => {
-        setIsChecked(!isChecked)
-        if (!isChecked) {
-            console.log(isChecked)
-            console.log('Select for delete')
-            setSelectedItems((items)=>[...items,item])
-        }
-        else {
-            console.log('unselected')
-        }
-        console.log(item)
+
+    const firstItemStyle = {
+        gridRowStart: 'span 2',
+        gridColumnStart: 'span 2',
     }
 
+    const isAlreadySelected = selectedItems?.find(selectedItem => selectedItem.id === item.id);
+    const handleOnChange = (e) => {
+        console.log(isAlreadySelected)
+        if (!isAlreadySelected) {
+            setSelectedItems((items) => [...items, item])
+        }
+        else{
+            setSelectedItems(selectedItems.filter(selectedItem=>selectedItem.id!==item.id))
+        }
+    }
+
+    useEffect(()=>{
+        if(selectedItems.length>0){
+            const isSelected = selectedItems?.find(selectedItem => selectedItem.id === item.id);
+        }
+    },[])
+
     return (
-        <div className="item" ref={setNodeRef}  >
-            <div className="image-container"   {...listeners} style={initialStyle}>
+        <div className="item" style={isLarge ? { gridRow: 'span 2', gridColumn: 'span 2' } : {}}  ref={(node) => {
+            nodeRef.current = node;
+
+            setNodeRef(node);
+        }} >
+            <div className="image-container" {...attributes}  {...listeners}  style={initialStyle}>
                 <img draggable='false' src={item.url} width="100%" height="100%" alt="" />
-                {isDragging || <span className={`${isChecked ? 'whiten' : 'darken'}`}></span>}
+                {isDragging || <span className={(selectedItems.length>0 &&isAlreadySelected)?'whiten':'darken'}></span>}
             </div>
-            {isDragging || <label style={labelStyle}>
-                <input onChange={handleOnChange} type="checkbox" checked={isChecked} />
+            {isDragging ||<label>
+                <input onChange={handleOnChange} type="checkbox" checked={(selectedItems.length>0 &&isAlreadySelected)&&true}/>
             </label>}
+            
+
         </div>
     );
 }

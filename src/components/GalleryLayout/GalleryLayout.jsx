@@ -14,21 +14,26 @@ const GalleryLayout = () => {
         setItems((items) => {
             const oldIndex = items.findIndex(item => item.id === active.id)
             const newIndex = items.findIndex(item => item.id === over.id)
-            console.log(oldIndex, newIndex)
             return arrayMove(items, oldIndex, newIndex)
         })
     }
 
     return (
         <div className='main-layout'>
-            <Topbar selectedItems={selectedItems} setItems={setItems}></Topbar>
+            <Topbar selectedItems={selectedItems} setSelectedItems={setSelectedItems} setItems={setItems}></Topbar>
             <div className="gallery-layout">
-            <DndContext onDragEnd={handleDragEnd} collisionDetection={closestCenter}>
+            <DndContext onDragEnd={handleDragEnd} onDragOver={(e)=>console.log('over')} collisionDetection={closestCenter}>
                 <SortableContext items={items} strategy={rectSortingStrategy} >
                     <div className='items-container'>
                         {
-                            items.map((item, index) => <SortableItem key={index} setSelectedItems={setSelectedItems} item={item}></SortableItem>)
+                            items.map((item, index) => {
+                                const isLarge = index === 0;
+                                return <SortableItem selectedItems={selectedItems} isLarge={isLarge} key={index} setSelectedItems={setSelectedItems} item={item}></SortableItem>
+                            })
                         }
+                        <div className='upload-image'>
+                            
+                        </div>
                     </div>
                 </SortableContext>
             </DndContext>
