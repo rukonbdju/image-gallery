@@ -1,13 +1,13 @@
-
+/* import google font */
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
 }
-body{
-  background-color: rgba(169, 169, 169, 0.597);
+
+body {
+  background-color: rgba(169, 169, 169, 0.4);
   font-family: 'Poppins', sans-serif;
 }

@@ -42,12 +42,12 @@ const SortableItem = ({ index, item, setSelectedItems, selectedItems }) => {
     }
 
     return (
-        <div className="item" style={(!index) ? { gridRow: 'span 2', gridColumn: 'span 2' } : {}} ref={setNodeRef} >
-            <div className="image-container" {...attributes}  {...listeners} style={initialStyle}>
+        <div className="item" style={(!index) ? { gridRow: 'span 2', gridColumn: 'span 2' } : {}} {...attributes} ref={setNodeRef} >
+            <div className="image-container"  {...listeners} style={initialStyle}>
                 <img draggable='false' src={item.url} width="100%" height="100%" alt="" />
                 {isDragging || <span className={isChecked ? 'whiten' : 'darken'}></span>}
             </div>
-            {(over?.id) ? <></> : <label style={isChecked?{display:"block"}:{}}>
+            {(over?.id) ? <></> : <label style={isChecked ? { display: "block" } : {}}>
                 <input onChange={handleOnChange} type="checkbox" checked={isChecked} />
             </label>}
         </div>

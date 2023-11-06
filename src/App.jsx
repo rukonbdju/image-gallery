@@ -1,13 +1,9 @@
-import './App.css'
 import GalleryLayout from './components/GalleryLayout/GalleryLayout'
 
 function App() {
 
-  return (
-   <div>
-    <GalleryLayout></GalleryLayout>
-   </div>
-  )
+  return <GalleryLayout></GalleryLayout>
+
 }
 
 export default App
