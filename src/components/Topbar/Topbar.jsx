@@ -17,8 +17,6 @@ const Topbar = ({setItems,selectedItems,setSelectedItems}) => {
                         <button onClick={handleDeleteItems} className="delete-btn">Delete {selectedItems.length>1 ?'files':'file'}</button>
                     </div></>}
             </div>
-
-
         </div>
     )
 }

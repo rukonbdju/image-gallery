@@ -28,7 +28,7 @@ const GalleryLayout = () => {
                         {
                             items.map((item, index) => {
                                 const isLarge = index === 0;
-                                return <SortableItem selectedItems={selectedItems} isLarge={isLarge} key={index} setSelectedItems={setSelectedItems} item={item}></SortableItem>
+                                return <SortableItem selectedItems={selectedItems} index={index} isLarge={isLarge} key={index} setSelectedItems={setSelectedItems} item={item}></SortableItem>
                             })
                         }
                         <div className='upload-image'>

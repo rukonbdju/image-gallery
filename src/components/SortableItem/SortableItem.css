@@ -1,78 +1,81 @@
-.item{
-    position: relative;
-    border: 1px solid gray;
-    border-radius: 8px;
+/* styled every item */
+.item {
+  position: relative;
+  border: 1px solid rgb(150, 150, 150);
+  border-radius: 8px;
+}
+/* style image container */
+.image-container {
+  border-radius: 8px;
+  position: relative;
+  background-color: white;
+  cursor: pointer;
+}
+/* when an item is active increase Z axis */
+.image-container:active {
+  border: 1px solid rgb(150, 150, 150);
+  z-index: 1000;
+}
+/* styled image rounded border */
+.image-container img {
+  border-radius: 8px;
+}
+/* styled checkbox initialy display none */
+.item label {
+  display: none;
+  position: absolute;
+  top: 5px;
+  left: 5px;
+}
+/* On over over the the item label will displayed */
+.item:hover label {
+  display: block;
 }
 
-.image-container img{
-    border-radius: 8px;
+/* make a shadow over the image */
+.image-container span {
+  transition: all 250ms ease-in-out;
+  position: absolute;
+  border-radius: 8px;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
 }
-.item label{
-    position: absolute;
-    top: 5px;
-    left: 5px;
+/* when hover over the image dark shade is appeared */
+.item:hover .darken {
+  background-color: rgba(0, 0, 0, 0.5);
 }
-.item:hover label{
-    display: block;
+/* when checked  white shade is appeared */
+.whiten {
+  background-color: rgba(255, 255, 255, 0.6);
 }
-.item:hover .darken{
-    background-color: rgba(0, 0, 0, 0.5);
-  }
-  
-  .image-container{
-    border-radius: 8px;
-    position: relative;
-    background-color: white;
-    cursor: pointer;
-  }
-  .image-container:active{
-    border: 1px solid gray;
-    z-index: 1000;
-  }
-  
-  .image-container span{
-    transition: all 250ms ease-in-out;
-    position: absolute;
-    border-radius: 5px;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-  }
-
-  .whiten{
-    background-color: rgba(255, 255, 255, 0.6);
-  }
 
 
 /* Hide the default checkbox and customizng style */
 input[type="checkbox"] {
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-    background-color: #ffffff;
-    position: relative;
-    border-radius: 3px;
-   
+  appearance: none;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background-color: #ffffff;
+  position: relative;
+  border-radius: 3px;
+
 }
 
 /* Create a custom checkbox style */
 input[type="checkbox"]:checked::before {
-    content: "\2713"; /* Unicode checkmark */
-    font-size: 16px;
-    font-weight: bold;
-    position: absolute;
-    top: -1px;
-    left: 4px;
-    color: #ffffff; /* checkmark color */
+  content: "\2713";/* Unicode checkmark */
+  font-size: 16px;
+  font-weight: bold;
+  position: absolute;
+  top: -1px;
+  left: 4px;
+  color: #ffffff;
 }
 
 /* Change appearance when checkbox is checked */
 input[type="checkbox"]:checked {
-    background-color: #367dbf;
+  background-color: #277ac8;
 }
-
-
-
-
-

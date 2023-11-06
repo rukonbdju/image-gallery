@@ -19,3 +19,20 @@
     height: 100%;
     border-radius: 8px;
 }
+
+/* Styles for mobile devices */
+@media only screen and (max-width: 767px) {
+    /* CSS for screens up to 767px (typical for mobile devices) */
+    .main-layout{
+        width: 80vw;
+        margin: 30px auto;
+        background-color: white;
+        border-radius: 8px;
+    }
+    .items-container{
+        display: grid;
+        grid-template-columns: repeat(3,1fr);
+        gap: 8px;
+    }
+  }
+  

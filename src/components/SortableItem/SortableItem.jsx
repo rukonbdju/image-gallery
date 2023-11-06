@@ -1,56 +1,57 @@
-import { useSortable } from "@dnd-kit/sortable";
-import { CSS } from "@dnd-kit/utilities";
-import { useEffect, useRef, useState } from "react";
-import './SortableItem.css'
-const SortableItem = ({ item, setSelectedItems, selectedItems, isLarge }) => {
-    const nodeRef = useRef(null);
-    const [isDraggedOverFirst, setIsDraggedOverFirst] = useState(false);
+import { useSortable } from "@dnd-kit/sortable"; //react hooks from `DND kit` library
+import { CSS } from "@dnd-kit/utilities"; // css style from `DND kit` library
+import { useEffect, useState } from "react";
+import './SortableItem.css'; //import css style
+
+const SortableItem = ({ index, item, setSelectedItems, selectedItems }) => {
+    /* 
+        useSortable is a react hooks from the `DND kit` library. It takes an object of {unique id} as an argument and return an object of {attributes, listeners, setNodeRef, transform, transition, isDragging, active, over} and so on. See `DND kit` documentation here https://dndkit.com/
+     */
     const { attributes, listeners, setNodeRef, transform, transition, isDragging, active, over } = useSortable({ id: item.id, item })
-    const isOverFirstImage = over && over.id === item.id && isLarge;
+
+    //State for item is selected or not. Initialy set to false. 
+    const [isChecked, setIsChecked] = useState(false)
+
+    // initial style from useSortable hook
     let initialStyle = {
         transform: CSS.Translate.toString(transform),
         transition: active ? transition : '',
         height: '100%',
     };
 
-    const firstItemStyle = {
-        gridRowStart: 'span 2',
-        gridColumnStart: 'span 2',
-    }
-
-    const isAlreadySelected = selectedItems?.find(selectedItem => selectedItem.id === item.id);
-    const handleOnChange = (e) => {
-        console.log(isAlreadySelected)
-        if (!isAlreadySelected) {
+    //checking this item is already selected or not with two dependancies and setIschecked acoording to condition
+    useEffect(() => {
+        const isAlreadySelected = selectedItems?.find(selectedItem => selectedItem.id === item.id);
+        if (selectedItems.length > 0 && isAlreadySelected) {
+            setIsChecked(true)
+        } else {
+            setIsChecked(false)
+        }
+    }, [selectedItems, item])
+    /* 
+    Event listener in checkbox element. If checkbox is checked this item will be selected for delete if unchecked item will be
+    removed from the selected items.  
+    */
+    const handleOnChange = () => {
+        if (!(isChecked)) {
             setSelectedItems((items) => [...items, item])
         }
-        else{
-            setSelectedItems(selectedItems.filter(selectedItem=>selectedItem.id!==item.id))
+        else {
+            setSelectedItems(selectedItems.filter(selectedItem => selectedItem.id !== item.id))
         }
     }
 
-    useEffect(()=>{
-        if(selectedItems.length>0){
-            const isSelected = selectedItems?.find(selectedItem => selectedItem.id === item.id);
-        }
-    },[])
-
     return (
-        <div className="item" style={isLarge ? { gridRow: 'span 2', gridColumn: 'span 2' } : {}}  ref={(node) => {
-            nodeRef.current = node;
-
-            setNodeRef(node);
-        }} >
-            <div className="image-container" {...attributes}  {...listeners}  style={initialStyle}>
+        <div className="item" style={(!index) ? { gridRow: 'span 2', gridColumn: 'span 2' } : {}} ref={setNodeRef} >
+            <div className="image-container" {...attributes}  {...listeners} style={initialStyle}>
                 <img draggable='false' src={item.url} width="100%" height="100%" alt="" />
-                {isDragging || <span className={(selectedItems.length>0 &&isAlreadySelected)?'whiten':'darken'}></span>}
+                {isDragging || <span className={isChecked ? 'whiten' : 'darken'}></span>}
             </div>
-            {isDragging ||<label>
-                <input onChange={handleOnChange} type="checkbox" checked={(selectedItems.length>0 &&isAlreadySelected)&&true}/>
+            {(over?.id) ? <></> : <label style={isChecked?{display:"block"}:{}}>
+                <input onChange={handleOnChange} type="checkbox" checked={isChecked} />
             </label>}
-            
-
         </div>
     );
 }
+
 export default SortableItem;
